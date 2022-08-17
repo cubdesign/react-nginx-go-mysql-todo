@@ -31,7 +31,7 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       TZ: "Asia/Tokyo"
     volumes:
-      - react-nginx-go-mysql-todo:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
     ports:
       - 3306:3306
     links:
@@ -49,4 +49,4 @@ services:
       - "go"
       - "node"
 volumes:
-  react-nginx-go-mysql-todo:
+  mysql-data:
