@@ -16,6 +16,9 @@ docker-compose stop
 
 ## 参考サイト
 
+VSCode Connect to multiple containers
+https://code.visualstudio.com/remote/advancedcontainers/connect-multiple-containers
+
 golang+react なアプリの開発環境をモノレポで作る
 https://zenn.dev/karabiner/articles/golang_react_monorepo
 
