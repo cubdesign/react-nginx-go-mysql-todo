@@ -1,5 +1,19 @@
 # react-nginx-go-mysql-todo
 
+## docker
+
+起動
+
+```
+docker-compose up -d
+```
+
+停止
+
+```
+docker-compose stop
+```
+
 ## 参考サイト
 
 golang+react なアプリの開発環境をモノレポで作る

@@ -48,4 +48,5 @@ services:
     depends_on:
       - "go"
       - "node"
-volumes: react-nginx-go-mysql-todo
+volumes:
+  react-nginx-go-mysql-todo:
