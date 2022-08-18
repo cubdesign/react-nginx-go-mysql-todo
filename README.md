@@ -2,6 +2,8 @@
 
 ## docker
 
+VSCodeのRemote Contetainerを使用する場合は、VSCodeから起動させること！
+
 起動
 
 ```

@@ -3,8 +3,8 @@ services:
   node:
     command: sleep infinity
     volumes:
-      - ./:/app:cached
+      - .:/workspace:cached
   go:
     command: sleep infinity
     volumes:
-      - ./:/app:cached
+      - .:/workspace:cached
