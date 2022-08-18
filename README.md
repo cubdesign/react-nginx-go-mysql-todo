@@ -21,6 +21,9 @@ docker-compose stop
 VSCode Connect to multiple containers
 https://code.visualstudio.com/remote/advancedcontainers/connect-multiple-containers
 
+dotfiles
+https://dotfiles.github.io/
+
 golang+react なアプリの開発環境をモノレポで作る
 https://zenn.dev/karabiner/articles/golang_react_monorepo
 
