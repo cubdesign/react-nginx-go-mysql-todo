@@ -18,6 +18,10 @@ docker-compose stop
 
 ## 参考サイト
 
+Go言語で基本的なCRUD操作を行うREST APIを作成
+https://dev.classmethod.jp/articles/go-sample-rest-api/
+
+
 VSCode Connect to multiple containers
 https://code.visualstudio.com/remote/advancedcontainers/connect-multiple-containers
 
@@ -29,3 +33,6 @@ https://zenn.dev/karabiner/articles/golang_react_monorepo
 
 とりあえず golang+nginx+mysql+docker-compose の環境構築
 https://qiita.com/greenteabiscuit/items/ef4ed1dfda0d396d9d0f
+
+GORM+Gin で Todo リストの API を作ってみた
+https://taisablog.com/archives/gorm-gin-todo-api

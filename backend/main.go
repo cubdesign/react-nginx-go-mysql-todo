@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"react-nginx-go-mysql-todo/config"
+	"react-nginx-go-mysql-todo/controllers"
+	"react-nginx-go-mysql-todo/utils"
+)
 
-func main(){
- fmt.Println("Hello World")	
+func main() {
+	utils.LoggingSettings(config.Config.LogFile)
+	controllers.StartWebserver()
 }
