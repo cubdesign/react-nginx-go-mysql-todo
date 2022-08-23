@@ -8,6 +8,17 @@ const Todos: NextPage = () => {
   const [isLoading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
+      const loadData =async () =>{
+          try {
+         const res  = await fetch("http://localhost:8080/todo")
+         const data = await res.json()
+          console.log(data)
+          } catch (err) {
+             console.log(err)
+          }
+
+      }
+      loadData()
   }, []);
   return (
     <div>
