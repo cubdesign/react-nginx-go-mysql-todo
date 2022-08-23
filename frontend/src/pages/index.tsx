@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Container } from "@mui/material";
+import { AppBar, Container, Toolbar, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import AddTodoForm from "@/components/AddTodoForm";
 
@@ -50,6 +50,15 @@ const Todos: NextPage = () => {
         <meta name="description" content="TODO" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <AppBar position="sticky">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            TODO
+          </Typography>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
 
       <main>
         <Container>

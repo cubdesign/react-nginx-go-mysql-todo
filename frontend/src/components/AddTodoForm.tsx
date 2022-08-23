@@ -1,6 +1,8 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import React from "react";
+import { Box, TextField, Button, FormHelperText } from "@mui/material";
 
 type FormInput = {
   text: string;
@@ -36,13 +38,23 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ addTodo }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" placeholder="input here!" {...register("text")} />
-        <button type="submit">add</button>
-        <p>{errors.text && errors.text.message}</p>
-      </form>
-    </div>
+    <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+      <Box display="flex" gap={1}>
+        <TextField
+          error={errors.text ? true : false}
+          variant="outlined"
+          placeholder="input here!"
+          {...register("text")}
+          sx={{ flexGrow: 1 }}
+        />
+        <Button type="submit" variant="contained" size="large">
+          add
+        </Button>
+      </Box>
+      <FormHelperText error={errors.text ? true : false}>
+        {errors.text && errors.text.message}
+      </FormHelperText>
+    </Box>
   );
 };
 
