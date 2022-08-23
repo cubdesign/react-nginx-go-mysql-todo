@@ -18,9 +18,11 @@ docker-compose stop
 
 ## 参考サイト
 
+バックエンドの Go アプリで Firebase Authentication のユーザを特定する
+https://zenn.dev/minguu42/articles/20220501-go-firebase-auth
+
 Go言語で基本的なCRUD操作を行うREST APIを作成
 https://dev.classmethod.jp/articles/go-sample-rest-api/
-
 
 VSCode Connect to multiple containers
 https://code.visualstudio.com/remote/advancedcontainers/connect-multiple-containers
