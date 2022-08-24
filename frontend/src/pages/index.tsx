@@ -27,7 +27,6 @@ const Todos: NextPage = () => {
   const [isLoading, setLoading] = useState(false);
 
   const loadData = async () => {
-    setLoading(true);
     try {
       const res = await fetch("http://localhost:8080/todo");
       const json = await res.json();
@@ -121,8 +120,31 @@ const Todos: NextPage = () => {
       console.log(err);
     }
   };
+  const updateTodo = async (id: number, text: string) => {
+    console.log("update Todo");
+    try {
+      const res = await fetch(
+        new URL(id.toString(), "http://localhost:8080/todo/"),
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            text: text,
+          }),
+        }
+      );
+      const json = await res.json();
+      // TODO ここにエラー処理を書く
+      await loadData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
+    setLoading(true);
     loadData();
   }, []);
 
@@ -172,6 +194,7 @@ const Todos: NextPage = () => {
                     doneTodo={doneTodo}
                     undoTodo={undoTodo}
                     removeTodo={removeTodo}
+                    updateTodo={updateTodo}
                   />
                 );
               })}

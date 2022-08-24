@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Todo, TodoStatusComplted, TodoStatusIncomplete } from "@/pages/index";
-import { Box, Typography } from "@mui/material";
+import { Box, Checkbox, IconButton, Typography } from "@mui/material";
 
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditTodoForm from "@/components/EditTodoForm";
 export type TodoRowProps = {
   todo: Todo;
   doneTodo: (id: number) => void;
   undoTodo: (id: number) => void;
   removeTodo: (id: number) => void;
+  updateTodo: (id: number, text: string) => void;
 };
 
 const TodoRow: React.FC<TodoRowProps> = ({
@@ -14,44 +17,63 @@ const TodoRow: React.FC<TodoRowProps> = ({
   doneTodo,
   undoTodo,
   removeTodo,
+  updateTodo,
 }) => {
-  const onClickDoneHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const [isEditting, setEditting] = useState<boolean>(false);
+
+  const onChangeCheckboxHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    doneTodo(todo.id);
+    if (todo.status === TodoStatusIncomplete) {
+      doneTodo(todo.id);
+    } else {
+      undoTodo(todo.id);
+    }
   };
-  const onClickUndoHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    undoTodo(todo.id);
-  };
+
   const onClickRemoveHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     removeTodo(todo.id);
   };
+
+  const onClickTextHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setEditting(true);
+  };
+
+  const onEndEditHandler = () => {
+    setEditting(false);
+  };
+
   return (
-    <Box display="flex">
-      {todo.status === TodoStatusComplted ? (
-        <Typography
-          variant="body1"
-          sx={{ flexGrow: 1, textDecoration: "line-through" }}
-        >
-          {todo.text}
-        </Typography>
-      ) : (
-        <Typography
-          variant="body1"
-          sx={{
-            flexGrow: 1,
-          }}
-        >
-          {todo.text}
-        </Typography>
-      )}
-      {todo.status === TodoStatusIncomplete ? (
-        <button onClick={onClickDoneHandler}>done</button>
-      ) : (
-        <button onClick={onClickUndoHandler}>undo</button>
-      )}
-      <button onClick={onClickRemoveHandler}>remove</button>
+    <Box display="flex" alignItems="center">
+      <Checkbox
+        checked={todo.status === TodoStatusComplted}
+        onChange={onChangeCheckboxHandler}
+      />
+      <Box
+        onClick={onClickTextHandler}
+        sx={{
+          flexGrow: 1,
+        }}
+      >
+        {isEditting ? (
+          <EditTodoForm
+            todo={todo}
+            updateTodo={updateTodo}
+            onEndEdit={onEndEditHandler}
+          />
+        ) : todo.status === TodoStatusComplted ? (
+          <Typography variant="body1" sx={{ textDecoration: "line-through" }}>
+            {todo.text}
+          </Typography>
+        ) : (
+          <Typography variant="body1">{todo.text}</Typography>
+        )}
+      </Box>
+
+      <IconButton onClick={onClickRemoveHandler} aria-label="remove">
+        <DeleteIcon />
+      </IconButton>
     </Box>
   );
 };

@@ -1,16 +1,10 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import React from "react";
-import {
-  Box,
-  TextField,
-  Button,
-  FormHelperText,
-  IconButton,
-} from "@mui/material";
+import { Box, TextField, FormHelperText } from "@mui/material";
 
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { Todo } from "@/pages/index";
 type FormInput = {
   text: string;
 };
@@ -20,10 +14,16 @@ const schema = yup.object({
 });
 
 export type AddTodoFormProps = {
-  addTodo: (text: string) => void;
+  todo: Todo;
+  updateTodo: (id: number, text: string) => void;
+  onEndEdit: () => void;
 };
 
-const AddTodoForm: React.FC<AddTodoFormProps> = ({ addTodo }) => {
+const EditTodoForm: React.FC<AddTodoFormProps> = ({
+  todo,
+  updateTodo,
+  onEndEdit,
+}) => {
   const {
     register,
     handleSubmit,
@@ -37,26 +37,45 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ addTodo }) => {
     try {
       const trimmedText = data.text.trim();
       if (trimmedText.length === 0) return;
-      await addTodo(trimmedText);
-      reset();
+      await updateTodo(todo.id, trimmedText);
     } catch (err) {
       console.log(err);
     }
+    onEndEdit();
+  };
+
+  const onBlur: SubmitHandler<FormInput> = async (data) => {
+    try {
+      const trimmedText = data.text.trim();
+      if (trimmedText.length === 0) {
+        reset();
+        onEndEdit();
+      } else {
+        await updateTodo(todo.id, trimmedText);
+        onEndEdit();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onError: SubmitErrorHandler<FormInput> = async (err) => {
+    onEndEdit();
   };
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
       <Box display="flex" gap={1}>
         <TextField
+          autoFocus={true}
           error={errors.text ? true : false}
           variant="outlined"
           placeholder="input here!"
+          defaultValue={todo.text}
           {...register("text")}
           sx={{ flexGrow: 1 }}
+          onBlur={handleSubmit(onBlur, onError)}
         />
-        <IconButton type="submit" aria-label="add" size="large">
-          <AddCircleIcon fontSize="large" />
-        </IconButton>
       </Box>
       <FormHelperText error={errors.text ? true : false}>
         {errors.text && errors.text.message}
@@ -65,4 +84,4 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ addTodo }) => {
   );
 };
 
-export default AddTodoForm;
+export default EditTodoForm;
