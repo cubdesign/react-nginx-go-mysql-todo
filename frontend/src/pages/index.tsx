@@ -39,7 +39,6 @@ const Todos: NextPage = () => {
   };
 
   const addTodo = async (text: string) => {
-    console.log("add Todo");
     try {
       const res = await fetch("http://localhost:8080/todo", {
         method: "POST",
@@ -59,7 +58,6 @@ const Todos: NextPage = () => {
   };
 
   const doneTodo = async (id: number) => {
-    console.log("done Todo");
     try {
       const res = await fetch(
         new URL(id.toString(), "http://localhost:8080/todo/"),
@@ -81,7 +79,6 @@ const Todos: NextPage = () => {
     }
   };
   const undoTodo = async (id: number) => {
-    console.log("undo Todo");
     try {
       const res = await fetch(
         new URL(id.toString(), "http://localhost:8080/todo/"),
@@ -103,7 +100,6 @@ const Todos: NextPage = () => {
     }
   };
   const removeTodo = async (id: number) => {
-    console.log("remove Todo");
     try {
       const res = await fetch(
         new URL(id.toString(), "http://localhost:8080/todo/"),
@@ -122,7 +118,6 @@ const Todos: NextPage = () => {
     }
   };
   const updateTodo = async (id: number, text: string) => {
-    console.log("update Todo");
     try {
       const res = await fetch(
         new URL(id.toString(), "http://localhost:8080/todo/"),
