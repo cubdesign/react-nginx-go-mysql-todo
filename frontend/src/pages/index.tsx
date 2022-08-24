@@ -25,17 +25,31 @@ const Todos: NextPage = () => {
     setLoading(false);
   };
 
-  const addTodo = (text: string) => {
+  const addTodo = async (text: string) => {
     console.log("add Todo");
+    try {
+      const res = await fetch("http://localhost:8080/todo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: text,
+        }),
+      });
+      const json = await res.json();
+      // TODO ここにエラー処理を書く
+      await loadData();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const doneTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
     console.log("done Todo");
   };
 
   const removeTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
     console.log("remove Todo");
   };
 

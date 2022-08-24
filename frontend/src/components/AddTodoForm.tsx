@@ -26,11 +26,11 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ addTodo }) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
     try {
       const trimmedText = data.text.trim();
       if (trimmedText.length === 0) return;
-      addTodo(trimmedText);
+      await addTodo(trimmedText);
       reset();
     } catch (err) {
       console.log(err);
