@@ -8,6 +8,7 @@ import {
   Button,
   Box,
   Stack,
+  Card,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import AddTodoForm from "@/components/AddTodoForm";
@@ -185,17 +186,19 @@ const Todos: NextPage = () => {
           {isLoading ? (
             <div>Loading...</div>
           ) : (
-            <Stack gap={1} mt={2}>
+            <Stack gap={2} mt={2} pr={8}>
               {data.map((todo) => {
                 return (
-                  <TodoRow
-                    key={todo.id}
-                    todo={todo}
-                    doneTodo={doneTodo}
-                    undoTodo={undoTodo}
-                    removeTodo={removeTodo}
-                    updateTodo={updateTodo}
-                  />
+                  <Card key={todo.id}>
+                    <TodoRow
+                      key={todo.id}
+                      todo={todo}
+                      doneTodo={doneTodo}
+                      undoTodo={undoTodo}
+                      removeTodo={removeTodo}
+                      updateTodo={updateTodo}
+                    />
+                  </Card>
                 );
               })}
             </Stack>
