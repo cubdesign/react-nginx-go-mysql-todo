@@ -15,7 +15,7 @@ import AddTodoForm from "@/components/AddTodoForm";
 import TodoRow from "@/components/TodoRow";
 
 export const TodoStatusIncomplete: number = 0;
-export const TodoStatusComplted: number = 1;
+export const TodoStatusCompleted: number = 1;
 
 export type Todo = {
   id: number;
@@ -69,7 +69,7 @@ const Todos: NextPage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            status: TodoStatusComplted,
+            status: TodoStatusCompleted,
           }),
         }
       );

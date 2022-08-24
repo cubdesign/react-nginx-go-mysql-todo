@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Todo, TodoStatusComplted, TodoStatusIncomplete } from "@/pages/index";
+import { Todo, TodoStatusCompleted, TodoStatusIncomplete } from "@/pages/index";
 import { Box, Checkbox, IconButton, Typography } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -47,7 +47,7 @@ const TodoRow: React.FC<TodoRowProps> = ({
   return (
     <Box display="flex" alignItems="center">
       <Checkbox
-        checked={todo.status === TodoStatusComplted}
+        checked={todo.status === TodoStatusCompleted}
         onChange={onChangeCheckboxHandler}
       />
       <Box
@@ -62,7 +62,7 @@ const TodoRow: React.FC<TodoRowProps> = ({
             updateTodo={updateTodo}
             onEndEdit={onEndEditHandler}
           />
-        ) : todo.status === TodoStatusComplted ? (
+        ) : todo.status === TodoStatusCompleted ? (
           <Typography variant="body1" sx={{ textDecoration: "line-through" }}>
             {todo.text}
           </Typography>
