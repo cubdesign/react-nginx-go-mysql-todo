@@ -30,6 +30,7 @@ const Todos: NextPage = () => {
   const loadData = async () => {
     try {
       const res = await fetch("http://localhost:8080/todo");
+      if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
       const json = await res.json();
       setData(json);
     } catch (err) {
@@ -49,8 +50,7 @@ const Todos: NextPage = () => {
           text: text,
         }),
       });
-      const json = await res.json();
-      // TODO ここにエラー処理を書く
+      if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
       await loadData();
     } catch (err) {
       console.log(err);
@@ -71,8 +71,7 @@ const Todos: NextPage = () => {
           }),
         }
       );
-      const json = await res.json();
-      // TODO ここにエラー処理を書く
+      if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
       await loadData();
     } catch (err) {
       console.log(err);
@@ -92,8 +91,7 @@ const Todos: NextPage = () => {
           }),
         }
       );
-      const json = await res.json();
-      // TODO ここにエラー処理を書く
+      if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
       await loadData();
     } catch (err) {
       console.log(err);
@@ -110,8 +108,7 @@ const Todos: NextPage = () => {
           },
         }
       );
-      const json = await res.json();
-      // TODO ここにエラー処理を書く
+      if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
       await loadData();
     } catch (err) {
       console.log(err);
@@ -131,8 +128,7 @@ const Todos: NextPage = () => {
           }),
         }
       );
-      const json = await res.json();
-      // TODO ここにエラー処理を書く
+      if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
       await loadData();
     } catch (err) {
       console.log(err);
