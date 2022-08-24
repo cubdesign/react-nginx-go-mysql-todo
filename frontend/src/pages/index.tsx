@@ -1,12 +1,17 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { AppBar, Container, Toolbar, Typography, Button } from "@mui/material";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddTodoForm from "@/components/AddTodoForm";
+import TodoRow from "@/components/TodoRow";
+
+export const TodoStatusIncomplete: number = 0;
+export const TodoStatusComplted: number = 1;
 
 export type Todo = {
   id: number;
   text: string;
+  status: number;
 };
 
 const Todos: NextPage = () => {
@@ -45,12 +50,68 @@ const Todos: NextPage = () => {
     }
   };
 
-  const doneTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const doneTodo = async (id: number) => {
     console.log("done Todo");
+    try {
+      const res = await fetch(
+        new URL(id.toString(), "http://localhost:8080/todo/"),
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            status: TodoStatusComplted,
+          }),
+        }
+      );
+      const json = await res.json();
+      // TODO ここにエラー処理を書く
+      await loadData();
+    } catch (err) {
+      console.log(err);
+    }
   };
-
-  const removeTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const undoTodo = async (id: number) => {
+    console.log("undo Todo");
+    try {
+      const res = await fetch(
+        new URL(id.toString(), "http://localhost:8080/todo/"),
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            status: TodoStatusIncomplete,
+          }),
+        }
+      );
+      const json = await res.json();
+      // TODO ここにエラー処理を書く
+      await loadData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const removeTodo = async (id: number) => {
     console.log("remove Todo");
+    try {
+      const res = await fetch(
+        new URL(id.toString(), "http://localhost:8080/todo/"),
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const json = await res.json();
+      // TODO ここにエラー処理を書く
+      await loadData();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -65,7 +126,7 @@ const Todos: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <AppBar position="sticky">
+      <AppBar component="header" position="sticky">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             TODO
@@ -84,14 +145,15 @@ const Todos: NextPage = () => {
             <div>Loading...</div>
           ) : (
             <ul>
-              {data.map((val) => {
+              {data.map((todo) => {
                 return (
-                  <li key={val.id}>
-                    <div>
-                      {val.text}
-                      <button onClick={doneTodo}>done</button>
-                      <button onClick={removeTodo}>remove</button>
-                    </div>
+                  <li key={todo.id}>
+                    <TodoRow
+                      todo={todo}
+                      doneTodo={doneTodo}
+                      undoTodo={undoTodo}
+                      removeTodo={removeTodo}
+                    />
                   </li>
                 );
               })}
