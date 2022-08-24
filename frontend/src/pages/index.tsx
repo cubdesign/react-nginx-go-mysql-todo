@@ -1,6 +1,14 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { AppBar, Container, Toolbar, Typography, Button } from "@mui/material";
+import {
+  AppBar,
+  Container,
+  Toolbar,
+  Typography,
+  Button,
+  Box,
+  Stack,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import AddTodoForm from "@/components/AddTodoForm";
 import TodoRow from "@/components/TodoRow";
@@ -135,35 +143,49 @@ const Todos: NextPage = () => {
         </Toolbar>
       </AppBar>
 
-      <main>
-        <Container>
-          <h1>TODO</h1>
-          <div>
+      <Box
+        component="main"
+        sx={{
+          height: "100vh",
+        }}
+      >
+        <Container
+          sx={{
+            p: 2,
+          }}
+        >
+          <Typography variant="h3" component="h1">
+            TODO
+          </Typography>
+          <Box>
             <AddTodoForm addTodo={addTodo} />
-          </div>
+          </Box>
           {isLoading ? (
             <div>Loading...</div>
           ) : (
-            <ul>
+            <Stack gap={1} mt={2}>
               {data.map((todo) => {
                 return (
-                  <li key={todo.id}>
-                    <TodoRow
-                      todo={todo}
-                      doneTodo={doneTodo}
-                      undoTodo={undoTodo}
-                      removeTodo={removeTodo}
-                    />
-                  </li>
+                  <TodoRow
+                    key={todo.id}
+                    todo={todo}
+                    doneTodo={doneTodo}
+                    undoTodo={undoTodo}
+                    removeTodo={removeTodo}
+                  />
                 );
               })}
-            </ul>
+            </Stack>
           )}
         </Container>
-      </main>
+      </Box>
 
-      <footer>
-        <Container>
+      <Box component="footer">
+        <Container
+          sx={{
+            textAlign: "center",
+          }}
+        >
           Powered by{" "}
           <a
             href="https://cubdesign.com"
@@ -173,7 +195,7 @@ const Todos: NextPage = () => {
             cubdesign
           </a>
         </Container>
-      </footer>
+      </Box>
     </div>
   );
 };

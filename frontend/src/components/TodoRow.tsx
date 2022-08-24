@@ -1,6 +1,6 @@
 import React from "react";
 import { Todo, TodoStatusComplted, TodoStatusIncomplete } from "@/pages/index";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 export type TodoRowProps = {
   todo: Todo;
@@ -28,8 +28,24 @@ const TodoRow: React.FC<TodoRowProps> = ({
     removeTodo(todo.id);
   };
   return (
-    <Box>
-      {todo.status === TodoStatusComplted ? <s>{todo.text}</s> : todo.text}
+    <Box display="flex">
+      {todo.status === TodoStatusComplted ? (
+        <Typography
+          variant="body1"
+          sx={{ flexGrow: 1, textDecoration: "line-through" }}
+        >
+          {todo.text}
+        </Typography>
+      ) : (
+        <Typography
+          variant="body1"
+          sx={{
+            flexGrow: 1,
+          }}
+        >
+          {todo.text}
+        </Typography>
+      )}
       {todo.status === TodoStatusIncomplete ? (
         <button onClick={onClickDoneHandler}>done</button>
       ) : (
