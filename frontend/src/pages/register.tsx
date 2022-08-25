@@ -45,34 +45,7 @@ const Register: NextPage = () => {
     resolver: yupResolver(schema),
   });
 
-  const doRegister = (email: string, password: string) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
-  };
-
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
-    const doRegister = (email: string, password: string) => {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // ..
-        });
-    };
     try {
       const userCredential: UserCredential =
         await createUserWithEmailAndPassword(
