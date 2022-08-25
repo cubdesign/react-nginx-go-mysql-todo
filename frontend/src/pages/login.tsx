@@ -13,6 +13,8 @@ import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Link from "next/link";
+import { useAuthUserContext } from "@/lib/AuthUser";
+import { useRouter } from "next/router";
 
 type FormInput = {
   email: string;
@@ -29,7 +31,8 @@ const schema = yup.object({
 
 const Login: NextPage = () => {
   const auth = getAuth();
-
+  const { authUser, login } = useAuthUserContext();
+  const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
 
   const {
@@ -47,7 +50,9 @@ const Login: NextPage = () => {
         data.email.trim(),
         data.password.trim()
       );
-      // TODO login 処理
+      login(userCredential.user, () => {
+        router.push("/");
+      });
     } catch (err) {
       if (err instanceof Error) {
         setServerError(err.message);

@@ -18,6 +18,12 @@ docker-compose stop
 
 ## 参考サイト
 
+Next.js: Firebase Authentication and Middleware for API Routes
+https://dev.to/dingran/next-js-firebase-authentication-and-middleware-for-api-routes-29m1
+
+Create Protected Routes In NextJS and NextAuth
+https://cloudcoders.xyz/blog/create-protected-routes-in-nextjs/
+
 バックエンドの Go アプリで Firebase Authentication のユーザを特定する
 https://zenn.dev/minguu42/articles/20220501-go-firebase-auth
 

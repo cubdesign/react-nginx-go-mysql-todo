@@ -1,24 +1,30 @@
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import Link from "next/link";
 import { getAuth, signOut } from "firebase/auth";
+import { useRouter } from "next/router";
+import { useAuthUserContext } from "@/lib/AuthUser";
 
 const Header = () => {
-  const doLogout = () => {
-    const auth = getAuth();
-    signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-      })
-      .catch((error) => {
-        // An error happened.
-      });
-  };
+  const auth = getAuth();
+  const { authUser, logout } = useAuthUserContext();
+  const router = useRouter();
   return (
     <AppBar component="header" position="sticky">
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          TODO
-        </Typography>
+        <Link href="/" passHref>
+          <Typography
+            variant="h6"
+            component="a"
+            sx={{
+              color: "#FFFFFF",
+              flexGrow: 1,
+              textDecoration: "none",
+            }}
+          >
+            TODO
+          </Typography>
+        </Link>
+
         <Link href="/login" passHref>
           <Button color="inherit">Login</Button>
         </Link>
@@ -26,6 +32,21 @@ const Header = () => {
         <Link href="/register" passHref>
           <Button color="inherit">Register</Button>
         </Link>
+        <Button
+          color="inherit"
+          onClick={async () => {
+            try {
+              await auth.signOut();
+              logout(() => {
+                router.push("/login");
+              });
+            } catch (error) {
+              console.error(error);
+            }
+          }}
+        >
+          ログアウト
+        </Button>
       </Toolbar>
     </AppBar>
   );

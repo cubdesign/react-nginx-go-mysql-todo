@@ -1,5 +1,6 @@
 import { Auth, getAuth, User as AuthUser } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 export type AuthUserContextType = {
   authUser: AuthUser | null;
@@ -23,6 +24,16 @@ const AuthUserProvider: React.FC<AuthUserProviderProps> = ({ children }) => {
   const auth: Auth = getAuth();
   const [authUser, setAuthUser] = useState<AuthUser | null>(null);
   const [initialize, setInitialize] = useState<boolean>(false);
+
+  const router = useRouter();
+  console.log(router.pathname);
+
+  // TODO ここログインチェック　＆　リダイレクト
+  // ログインしていなくても表示するページ
+  // /login /register
+
+  // ログインしていたら、トップページにリダイレクトするページ
+  // /login /register
 
   useEffect(() => {
     const unSubscribe = auth.onAuthStateChanged((authUser) => {

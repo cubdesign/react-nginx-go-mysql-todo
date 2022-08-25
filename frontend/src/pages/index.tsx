@@ -129,8 +129,8 @@ const Todos: NextPage = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
-    loadData();
+    // setLoading(true);
+    // loadData();
   }, []);
 
   return (
