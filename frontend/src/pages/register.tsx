@@ -103,6 +103,7 @@ const Register: NextPage = () => {
             <TextField
               label="email"
               placeholder="email"
+              autoFocus={true}
               {...register("email")}
               error={errors.email ? true : false}
               helperText={errors.email?.message}
