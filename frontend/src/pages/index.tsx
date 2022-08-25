@@ -13,6 +13,8 @@ import {
 import React, { useEffect, useState } from "react";
 import AddTodoForm from "@/components/AddTodoForm";
 import TodoRow from "@/components/TodoRow";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const TodoStatusIncomplete: number = 0;
 export const TodoStatusCompleted: number = 1;
@@ -148,15 +150,7 @@ const Todos: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <AppBar component="header" position="sticky">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            TODO
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-
+      <Header />
       <Box
         component="main"
         sx={{
@@ -196,23 +190,7 @@ const Todos: NextPage = () => {
           )}
         </Container>
       </Box>
-
-      <Box component="footer">
-        <Container
-          sx={{
-            textAlign: "center",
-          }}
-        >
-          Powered by{" "}
-          <a
-            href="https://cubdesign.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            cubdesign
-          </a>
-        </Container>
-      </Box>
+      <Footer />
     </div>
   );
 };
