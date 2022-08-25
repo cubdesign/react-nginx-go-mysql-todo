@@ -25,28 +25,32 @@ const Header = () => {
           </Typography>
         </Link>
 
-        <Link href="/login" passHref>
-          <Button color="inherit">Login</Button>
-        </Link>
-
-        <Link href="/register" passHref>
-          <Button color="inherit">Register</Button>
-        </Link>
-        <Button
-          color="inherit"
-          onClick={async () => {
-            try {
-              await auth.signOut();
-              logout(() => {
-                router.push("/login");
-              });
-            } catch (error) {
-              console.error(error);
-            }
-          }}
-        >
-          ログアウト
-        </Button>
+        {authUser ? (
+          <Button
+            color="inherit"
+            onClick={async () => {
+              try {
+                await auth.signOut();
+                logout(() => {
+                  // router.push("/login");
+                });
+              } catch (error) {
+                console.error(error);
+              }
+            }}
+          >
+            ログアウト
+          </Button>
+        ) : (
+          <>
+            <Link href="/login" passHref>
+              <Button color="inherit">Login</Button>
+            </Link>
+            <Link href="/register" passHref>
+              <Button color="inherit">Register</Button>
+            </Link>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );

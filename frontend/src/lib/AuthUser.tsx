@@ -28,13 +28,6 @@ const AuthUserProvider: React.FC<AuthUserProviderProps> = ({ children }) => {
   const router = useRouter();
   console.log(router.pathname);
 
-  // TODO ここログインチェック　＆　リダイレクト
-  // ログインしていなくても表示するページ
-  // /login /register
-
-  // ログインしていたら、トップページにリダイレクトするページ
-  // /login /register
-
   useEffect(() => {
     const unSubscribe = auth.onAuthStateChanged((authUser) => {
       console.log("onAuthStateChanged", authUser);
@@ -62,6 +55,27 @@ const AuthUserProvider: React.FC<AuthUserProviderProps> = ({ children }) => {
     login,
     logout,
   };
+
+  if (initialize) {
+    if ("/" === router.pathname) {
+      if (!authUser) {
+        router.push("/login");
+        return <></>;
+      }
+    }
+    // ログインしていなくても表示するページ
+    // /login /register
+
+    // ログインしていたら、トップページにリダイレクトするページ
+    // /login /register
+
+    if ("/login" === router.pathname || "/register" === router.pathname) {
+      if (authUser) {
+        router.push("/");
+        return <></>;
+      }
+    }
+  }
 
   return (
     <AuthUserContext.Provider value={value}>
