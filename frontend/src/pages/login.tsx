@@ -40,6 +40,7 @@ const Login: NextPage = () => {
     resolver: yupResolver(schema),
   });
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    setServerError(null);
     try {
       const userCredential: UserCredential = await signInWithEmailAndPassword(
         auth,

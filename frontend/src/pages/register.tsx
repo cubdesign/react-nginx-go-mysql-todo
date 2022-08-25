@@ -46,6 +46,7 @@ const Register: NextPage = () => {
   });
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    setServerError(null);
     try {
       const userCredential: UserCredential =
         await createUserWithEmailAndPassword(
