@@ -8,5 +8,6 @@ import (
 
 func main() {
 	utils.LoggingSettings(config.Config.LogFile)
+
 	controllers.StartWebserver()
 }

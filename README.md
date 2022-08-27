@@ -18,6 +18,9 @@ docker-compose stop
 
 ## 参考サイト
 
+「Vue.js + Go言語 + Firebase 」で始める! Frontend & Backend API 両方で認証するセキュアなSPA開発ハンズオン!
+https://qiita.com/po3rin/items/d3e016d01162e9d9de80
+
 Next.js: Firebase Authentication and Middleware for API Routes
 https://dev.to/dingran/next-js-firebase-authentication-and-middleware-for-api-routes-29m1
 

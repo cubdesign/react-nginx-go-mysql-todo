@@ -6,6 +6,7 @@ import AddTodoForm from "@/components/AddTodoForm";
 import TodoRow from "@/components/TodoRow";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useAuthUserContext } from "@/lib/AuthUser";
 
 export const TodoStatusIncomplete: number = 0;
 export const TodoStatusCompleted: number = 1;
@@ -19,10 +20,22 @@ export type Todo = {
 const Todos: NextPage = () => {
   const [data, setData] = useState<Todo[]>([]);
   const [isLoading, setLoading] = useState(false);
+  const { authUser } = useAuthUserContext();
+
+  const getRequestHeaders = async () => {
+    const idToken = await authUser?.getIdToken();
+    return {
+      Authorization: `Bearer ${idToken}`,
+    };
+  };
 
   const loadData = async () => {
     try {
-      const res = await fetch("http://localhost:8080/todo");
+      const headers = await getRequestHeaders();
+      const res = await fetch("http://localhost:8080/todo", {
+        method: "GET",
+        headers: headers,
+      });
       if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
       const json = await res.json();
       setData(json);
@@ -34,10 +47,14 @@ const Todos: NextPage = () => {
 
   const addTodo = async (text: string) => {
     try {
+      const headers = await getRequestHeaders();
       const res = await fetch("http://localhost:8080/todo", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          ...headers,
+          ...{
+            "Content-Type": "application/json",
+          },
         },
         body: JSON.stringify({
           text: text,
@@ -52,12 +69,16 @@ const Todos: NextPage = () => {
 
   const doneTodo = async (id: number) => {
     try {
+      const headers = await getRequestHeaders();
       const res = await fetch(
         new URL(id.toString(), "http://localhost:8080/todo/"),
         {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json",
+            ...headers,
+            ...{
+              "Content-Type": "application/json",
+            },
           },
           body: JSON.stringify({
             status: TodoStatusCompleted,
@@ -72,12 +93,16 @@ const Todos: NextPage = () => {
   };
   const undoTodo = async (id: number) => {
     try {
+      const headers = await getRequestHeaders();
       const res = await fetch(
         new URL(id.toString(), "http://localhost:8080/todo/"),
         {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json",
+            ...headers,
+            ...{
+              "Content-Type": "application/json",
+            },
           },
           body: JSON.stringify({
             status: TodoStatusIncomplete,
@@ -92,12 +117,16 @@ const Todos: NextPage = () => {
   };
   const removeTodo = async (id: number) => {
     try {
+      const headers = await getRequestHeaders();
       const res = await fetch(
         new URL(id.toString(), "http://localhost:8080/todo/"),
         {
           method: "DELETE",
           headers: {
-            "Content-Type": "application/json",
+            ...headers,
+            ...{
+              "Content-Type": "application/json",
+            },
           },
         }
       );
@@ -109,12 +138,16 @@ const Todos: NextPage = () => {
   };
   const updateTodo = async (id: number, text: string) => {
     try {
+      const headers = await getRequestHeaders();
       const res = await fetch(
         new URL(id.toString(), "http://localhost:8080/todo/"),
         {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json",
+            ...headers,
+            ...{
+              "Content-Type": "application/json",
+            },
           },
           body: JSON.stringify({
             text: text,
@@ -129,8 +162,8 @@ const Todos: NextPage = () => {
   };
 
   useEffect(() => {
-    // setLoading(true);
-    // loadData();
+    setLoading(true);
+    loadData();
   }, []);
 
   return (
