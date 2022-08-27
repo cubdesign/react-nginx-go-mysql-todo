@@ -18,6 +18,9 @@ docker-compose stop
 
 ## 参考サイト
 
+ID トークンを検証する Firebase
+https://firebase.google.com/docs/auth/admin/verify-id-tokens?authuser=1&hl=ja#go
+
 「Vue.js + Go言語 + Firebase 」で始める! Frontend & Backend API 両方で認証するセキュアなSPA開発ハンズオン!
 https://qiita.com/po3rin/items/d3e016d01162e9d9de80
 
