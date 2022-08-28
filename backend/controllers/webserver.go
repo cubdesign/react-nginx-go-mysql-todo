@@ -4,7 +4,6 @@ import (
 	"context"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
 	"react-nginx-go-mysql-todo/api"
 	"react-nginx-go-mysql-todo/models"
@@ -31,7 +30,6 @@ func AuthMiddleware() gin.HandlerFunc {
 		}
 
 		ctx.Set("UUID", token.UID)
-		log.Printf("uuid: %v", token.UID)
 		ctx.Next()
 	}
 }
