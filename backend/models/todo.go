@@ -32,15 +32,15 @@ func (t *Todo) Delete() {
 	Db.Delete(&t)
 }
 
-func GetTodos() []Todo {
+func GetTodos(userID uint) []Todo {
 	var todos []Todo
-	Db.Order("created_at desc").Find(&todos)
+	Db.Order("created_at desc").Find(&todos, "user_id = ?", userID)
 	return todos
 }
 
-func GetTodo(id uint) *Todo {
+func GetTodo(id uint, userID uint) *Todo {
 	var todo Todo
-	result := Db.First(&todo, id)
+	result := Db.First(&todo, "id = ? AND user_id = ?", id, userID)
 	if result.Error != nil {
 		return nil
 	}
