@@ -91,7 +91,7 @@ func (h *UserHandler) CreateUserByUUID(ctx *gin.Context) {
 
 	dbUser := models.GetUserByUUID(user.UUID)
 	if dbUser != nil {
-		ctx.JSON(http.StatusOK, &user)
+		ctx.JSON(http.StatusOK, &dbUser)
 		return
 	}
 
