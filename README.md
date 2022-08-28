@@ -18,6 +18,9 @@ docker-compose stop
 
 ## 参考サイト
 
+gin カスタムミドルウェア
+https://github.com/gin-gonic/gin#using-middleware
+
 ID トークンを検証する Firebase
 https://firebase.google.com/docs/auth/admin/verify-id-tokens?authuser=1&hl=ja#go
 

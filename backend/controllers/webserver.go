@@ -2,34 +2,57 @@ package controllers
 
 import (
 	"context"
-	firebase "firebase.google.com/go/v4"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"log"
+	"net/http"
 	"react-nginx-go-mysql-todo/api"
+	"react-nginx-go-mysql-todo/models"
+	"strings"
 )
 
+func AuthMiddleware() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+
+		authorizationToken := ctx.GetHeader("Authorization")
+
+		idToken := strings.TrimSpace(strings.Replace(authorizationToken, "Bearer", "", 1))
+		if idToken == "" {
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": "Id token not available"})
+			return
+		}
+
+		//verify token
+		token, err := models.FirebaseAuth.VerifyIDToken(context.Background(), idToken)
+
+		if err != nil {
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": "invalid token"})
+			return
+		}
+
+		ctx.Set("UUID", token.UID)
+		log.Printf("uuid: %v", token.UID)
+		ctx.Next()
+	}
+}
+
 func StartWebserver() {
-	router := gin.Default()
+	r := gin.Default()
 
 	config := cors.DefaultConfig()
 	config.AllowHeaders = append(config.AllowHeaders, "Authorization")
 	config.AllowOrigins = []string{"http://localhost:3000"}
 
-	router.Use(cors.New(config))
+	r.Use(cors.New(config))
 
-	app, err := firebase.NewApp(context.Background(), nil)
-	if err != nil {
-		log.Fatalf("error initializing firebase admin app: %v\n", err)
-	}
-	log.Printf("app:%T", app)
+	r.Use(AuthMiddleware())
 
 	apiTodoHandler := api.TodoHandler{}
-	router.GET("/todo", apiTodoHandler.GetAllTodos)
-	router.POST("/todo", apiTodoHandler.CreateTodo)
-	router.GET("/todo/:id", apiTodoHandler.GetTodo)
-	router.PUT("/todo/:id", apiTodoHandler.UpdateTodo)
-	router.DELETE("/todo/:id", apiTodoHandler.DeleteTodo)
+	r.GET("/todo", apiTodoHandler.GetAllTodos)
+	r.POST("/todo", apiTodoHandler.CreateTodo)
+	r.GET("/todo/:id", apiTodoHandler.GetTodo)
+	r.PUT("/todo/:id", apiTodoHandler.UpdateTodo)
+	r.DELETE("/todo/:id", apiTodoHandler.DeleteTodo)
 
-	router.Run(":8080")
+	r.Run(":8080")
 }
