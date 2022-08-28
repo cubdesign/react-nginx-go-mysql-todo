@@ -18,6 +18,9 @@ docker-compose stop
 
 ## 参考サイト
 
+カスタム トークンを作成する Firebase
+https://firebase.google.com/docs/auth/admin/create-custom-tokens?hl=ja&authuser=0
+
 gin カスタムミドルウェア
 https://github.com/gin-gonic/gin#using-middleware
 
