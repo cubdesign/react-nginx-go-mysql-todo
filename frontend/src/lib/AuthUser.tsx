@@ -42,6 +42,7 @@ const AuthUserProvider: React.FC<AuthUserProviderProps> = ({ children }) => {
 
   const login = (authUser: AuthUser, callback: () => void) => {
     setAuthUser(authUser);
+    createUser(authUser);
     callback();
   };
 
@@ -54,6 +55,35 @@ const AuthUserProvider: React.FC<AuthUserProviderProps> = ({ children }) => {
     authUser,
     login,
     logout,
+  };
+
+  const getRequestHeaders = async (authUser: AuthUser) => {
+    const idToken = await authUser?.getIdToken();
+    return {
+      Authorization: `Bearer ${idToken}`,
+    };
+  };
+
+  const createUser = async (authUser: AuthUser) => {
+    try {
+      const headers = await getRequestHeaders(authUser);
+      const uuid = authUser.uid;
+      const res = await fetch("http://localhost:8080/user/create", {
+        method: "POST",
+        headers: {
+          ...headers,
+          ...{
+            "Content-Type": "application/json",
+          },
+        },
+        body: JSON.stringify({
+          UUID: uuid,
+        }),
+      });
+      if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   if (initialize) {

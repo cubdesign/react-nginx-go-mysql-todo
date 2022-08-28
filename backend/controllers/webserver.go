@@ -52,5 +52,14 @@ func StartWebserver() {
 	r.PUT("/todo/:id", apiTodoHandler.UpdateTodo)
 	r.DELETE("/todo/:id", apiTodoHandler.DeleteTodo)
 
+	apiUserHandler := api.UserHandler{}
+	r.POST("/user/create", apiUserHandler.CreateUserByUUID)
+
+	//r.GET("/user", apiUserHandler.GetAllUsers)
+	//r.POST("/user", apiUserHandler.CreateUser)
+	//r.GET("/user/:id", apiUserHandler.GetUser)
+	//r.PUT("/user/:id", apiUserHandler.UpdateUser)
+	//r.DELETE("/user/:id", apiUserHandler.DeleteUser)
+
 	r.Run(":8080")
 }

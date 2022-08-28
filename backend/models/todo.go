@@ -14,6 +14,7 @@ type Todo struct {
 	ID        uint           `json:"id" gorm:"primaryKey"`
 	Text      string         `json:"text"`
 	Status    int            `json:"status"`
+	UserID    uint           `json:"user_id"`
 	CreatedAt time.Time      `json:"created_at"`
 	UpdatedAt time.Time      `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `json:"deleted_at" gorm:"index"`

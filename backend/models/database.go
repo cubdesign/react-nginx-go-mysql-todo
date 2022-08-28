@@ -24,7 +24,7 @@ func init() {
 	if err != nil {
 		log.Fatalf("action: db Open, %s", err.Error())
 	}
-	err = Db.AutoMigrate(&Todo{})
+	err = Db.AutoMigrate(&User{}, &Todo{})
 	if err != nil {
 		log.Fatalf("action:db automigrate, err:%s", err.Error())
 	}
