@@ -18,6 +18,9 @@ docker-compose stop
 
 ## 参考サイト
 
+月 5.5ドルで使える Vultr で nginx-proxy を構築して frourio を Docker で動かす！
+https://zenn.dev/su8ru/articles/vultr-nginx-proxy-frourio
+
 カスタム トークンを作成する Firebase
 https://firebase.google.com/docs/auth/admin/create-custom-tokens?hl=ja&authuser=0
 
