@@ -4,6 +4,13 @@
 
 VSCodeのRemote Contetainerを使用する場合は、VSCodeから起動させること！
 
+初期化 ネットワークを作る
+```
+docker network create front_bridge
+docker network create back_bridge
+```
+
+
 起動
 
 ```
@@ -15,6 +22,17 @@ docker-compose up -d
 ```
 docker-compose stop
 ```
+
+起動（proxy）
+```
+docker-compose -f docker-compose.proxy.yml up
+```
+
+起動（app）
+```
+docker-compose -f docker-compose.app.yml up
+```
+
 
 ## 参考サイト
 
