@@ -18,6 +18,9 @@ docker-compose stop
 
 ## 参考サイト
 
+jwilder/nginx-proxyで{ホスト名}/{パス}でコンテナにルーティングする方法
+https://qiita.com/Ayumu_Usu/items/0891f3f733e355ed1265
+
 月 5.5ドルで使える Vultr で nginx-proxy を構築して frourio を Docker で動かす！
 https://zenn.dev/su8ru/articles/vultr-nginx-proxy-frourio
 
