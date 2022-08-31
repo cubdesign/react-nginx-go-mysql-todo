@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 	"react-nginx-go-mysql-todo/api"
 	todoConfig "react-nginx-go-mysql-todo/config"
@@ -14,6 +15,7 @@ import (
 func AuthMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
+		log.Printf("ClientIP: %s\n", ctx.ClientIP())
 		authorizationToken := ctx.GetHeader("Authorization")
 
 		idToken := strings.TrimSpace(strings.Replace(authorizationToken, "Bearer", "", 1))
@@ -41,6 +43,12 @@ func StartWebserver() {
 	config := cors.DefaultConfig()
 	config.AllowHeaders = append(config.AllowHeaders, "Authorization")
 	config.AllowOrigins = todoConfig.Config.CORS
+
+	r.SetTrustedProxies(todoConfig.Config.TRUSTED_PROXIES)
+
+	r.Use(gin.Logger())
+
+	r.Use(gin.Recovery())
 
 	r.Use(cors.New(config))
 

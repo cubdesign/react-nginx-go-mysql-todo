@@ -11,12 +11,13 @@ import (
 type ConfigList struct {
 	LogFile string
 
-	DbHost     string
-	DbPort     int
-	DbUser     string
-	DbPassword string
-	DbName     string
-	CORS       []string
+	DbHost          string
+	DbPort          int
+	DbUser          string
+	DbPassword      string
+	DbName          string
+	CORS            []string
+	TRUSTED_PROXIES []string
 }
 
 var Config ConfigList
@@ -36,15 +37,23 @@ func init() {
 
 	log.Printf("CORS: %T, %v, %d", cors, cors, len(cors))
 
+	trustedProxies := strings.Split(os.Getenv("TRUSTED_PROXIES"), ",")
+	for i := range trustedProxies {
+		trustedProxies[i] = strings.TrimSpace(trustedProxies[i])
+	}
+
+	log.Printf("TRUSTED_PROXIES: %T, %v, %d", trustedProxies, trustedProxies, len(trustedProxies))
+
 	Config = ConfigList{
 
 		LogFile: os.Getenv("LOG_FILE"),
 
-		DbHost:     os.Getenv("DB_HOST"),
-		DbPort:     dbPort,
-		DbName:     os.Getenv("DB_NAME"),
-		DbUser:     os.Getenv("DB_USER"),
-		DbPassword: os.Getenv("DB_PASSWORD"),
-		CORS:       cors,
+		DbHost:          os.Getenv("DB_HOST"),
+		DbPort:          dbPort,
+		DbName:          os.Getenv("DB_NAME"),
+		DbUser:          os.Getenv("DB_USER"),
+		DbPassword:      os.Getenv("DB_PASSWORD"),
+		CORS:            cors,
+		TRUSTED_PROXIES: trustedProxies,
 	}
 }
