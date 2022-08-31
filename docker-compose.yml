@@ -10,8 +10,8 @@ services:
     container_name: node_container
     tty: true
     environment:
-      - VIRTUAL_HOST=${VIRTUAL_HOST}
-      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
+      - VIRTUAL_HOST=${FRONTEND_VIRTUAL_HOST}
+      - LETSENCRYPT_HOST=${FRONTEND_LETSENCRYPT_HOST}
       - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
       - LETSENCRYPT_TEST=${LETSENCRYPT_TEST}
     volumes:
@@ -33,6 +33,11 @@ services:
     depends_on:
       - "mysql"
     tty: true
+    environment:
+      - VIRTUAL_HOST=${BACKEND_VIRTUAL_HOST}
+      - LETSENCRYPT_HOST=${BACKEND_LETSENCRYPT_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+      - LETSENCRYPT_TEST=${LETSENCRYPT_TEST}
     volumes:
       - ./backend:/app/backend
     networks:

@@ -9,3 +9,5 @@
 .env
 .env.production
 /certs
+
+README.aws.md
