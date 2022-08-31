@@ -1,25 +1,23 @@
 FROM node:latest as builder
 
-WORKDIR /app/frontend
-ENV NEXT_TELEMETRY_DISABLED 1
-COPY ./frontend /app/frontend
+WORKDIR /app
+COPY ./frontend /app
 RUN yarn install
 RUN NODE_ENV=production yarn build
 
 
 FROM node:latest as runner
 
-WORKDIR /app/frontend
+WORKDIR /app
 
 ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
 
-COPY --from=builder /app/frontend/next.config.js next.config.js
-COPY --from=builder /app/frontend/.next .next
-COPY --from=builder /app/frontend/.env .env
-COPY --from=builder /app/frontend/public public
-COPY --from=builder /app/frontend/node_modules node_modules
-COPY --from=builder /app/frontend/package.json package.json
-COPY --from=builder /app/frontend/yarn.lock yarn.lock
+COPY --from=builder /app/next.config.js next.config.js
+COPY --from=builder /app/.next .next
+COPY --from=builder /app/.env .env
+COPY --from=builder /app/public public
+COPY --from=builder /app/node_modules node_modules
+COPY --from=builder /app/package.json package.json
+COPY --from=builder /app/yarn.lock yarn.lock
 
 CMD ["yarn", "start"]
