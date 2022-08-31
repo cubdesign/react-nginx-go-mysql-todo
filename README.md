@@ -10,11 +10,17 @@ docker network create front_bridge
 docker network create back_bridge
 ```
 
+### 開発環境
+
+ビルド
+```
+docker-compose --env-file ./.env build
+```
 
 起動
 
 ```
-docker-compose up -d
+docker-compose --env-file ./.env up -d
 ```
 
 停止
@@ -23,18 +29,28 @@ docker-compose up -d
 docker-compose stop
 ```
 
-起動（proxy）
+### 本番環境
+
+ビルド
 ```
-docker-compose -f docker-compose.proxy.yml up
+docker-compose --env-file ./.env.production build
 ```
 
-起動（app）
+起動
+
 ```
-docker-compose -f docker-compose.app.yml up
+docker-compose --env-file ./.env.production up -d
 ```
 
+停止
+
+```
+docker-compose stop
+```
 
 ## 参考サイト
+How To Deploy a Go Web Application with Docker
+https://semaphoreci.com/community/tutorials/how-to-deploy-a-go-web-application-with-docker
 
 jwilder/nginx-proxyで{ホスト名}/{パス}でコンテナにルーティングする方法
 https://qiita.com/Ayumu_Usu/items/0891f3f733e355ed1265

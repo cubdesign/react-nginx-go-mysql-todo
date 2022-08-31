@@ -26,7 +26,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/golang/Dockerfile
-    #    restart: on-failure
+#    restart: on-failure
     container_name: go_container
     ports:
       - "8080:8080"
@@ -46,6 +46,8 @@ services:
     #    restart: on-failure
     container_name: mysql_container
     environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       TZ: "Asia/Tokyo"

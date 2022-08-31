@@ -1,4 +1,7 @@
 .env
+.env.production
 *.log
+
+google-application-credentials.json
 
 rest-api.http

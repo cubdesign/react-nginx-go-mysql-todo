@@ -7,4 +7,5 @@
 
 # APP
 .env
+.env.production
 /certs
