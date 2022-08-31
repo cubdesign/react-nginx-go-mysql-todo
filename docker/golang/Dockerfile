@@ -1,7 +1,7 @@
 FROM golang:latest as builder
 
 WORKDIR /app
-RUN GIN_MODE=release
+ENV GIN_MODE release
 
 COPY ./backend/go.mod  go.mod
 COPY ./backend/go.sum  go.sum
@@ -16,7 +16,7 @@ RUN go build -o todoapp
 
 FROM golang:latest as runner
 WORKDIR /app
-RUN GIN_MODE=release
+ENV GIN_MODE release
 
 COPY --from=builder /app/todoapp .
 COPY --from=builder /app/.env.production .env
