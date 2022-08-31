@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"react-nginx-go-mysql-todo/api"
+	todoConfig "react-nginx-go-mysql-todo/config"
 	"react-nginx-go-mysql-todo/models"
 	"strings"
 )
@@ -39,7 +40,7 @@ func StartWebserver() {
 
 	config := cors.DefaultConfig()
 	config.AllowHeaders = append(config.AllowHeaders, "Authorization")
-	config.AllowOrigins = []string{"http://localhost:3000"}
+	config.AllowOrigins = todoConfig.Config.CORS
 
 	r.Use(cors.New(config))
 

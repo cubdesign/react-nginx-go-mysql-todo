@@ -65,10 +65,11 @@ const AuthUserProvider: React.FC<AuthUserProviderProps> = ({ children }) => {
   };
 
   const createUser = async (authUser: AuthUser) => {
+    const BACKEND_API_URL: string = process.env.NEXT_PUBLIC_BACKEND_API_URL!;
     try {
       const headers = await getRequestHeaders(authUser);
       const uuid = authUser.uid;
-      const res = await fetch("http://localhost:8080/user/create", {
+      const res = await fetch(BACKEND_API_URL + "/user/create", {
         method: "POST",
         headers: {
           ...headers,

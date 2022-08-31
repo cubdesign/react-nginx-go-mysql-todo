@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"strings"
 )
 
 type ConfigList struct {
@@ -15,6 +16,7 @@ type ConfigList struct {
 	DbUser     string
 	DbPassword string
 	DbName     string
+	CORS       []string
 }
 
 var Config ConfigList
@@ -27,6 +29,13 @@ func init() {
 
 	dbPort, _ := strconv.Atoi(os.Getenv("DB_PORT"))
 
+	cors := strings.Split(os.Getenv("CORS"), ",")
+	for i := range cors {
+		cors[i] = strings.TrimSpace(cors[i])
+	}
+
+	log.Printf("CORS: %T, %v, %d", cors, cors, len(cors))
+
 	Config = ConfigList{
 
 		LogFile: os.Getenv("LOG_FILE"),
@@ -36,5 +45,6 @@ func init() {
 		DbName:     os.Getenv("DB_NAME"),
 		DbUser:     os.Getenv("DB_USER"),
 		DbPassword: os.Getenv("DB_PASSWORD"),
+		CORS:       cors,
 	}
 }

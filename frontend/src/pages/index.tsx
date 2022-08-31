@@ -8,6 +8,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useAuthUserContext } from "@/lib/AuthUser";
 
+const BACKEND_API_URL: string = process.env.NEXT_PUBLIC_BACKEND_API_URL!;
+
 export const TodoStatusIncomplete: number = 0;
 export const TodoStatusCompleted: number = 1;
 
@@ -32,7 +34,7 @@ const Todos: NextPage = () => {
   const loadData = async () => {
     try {
       const headers = await getRequestHeaders();
-      const res = await fetch("http://localhost:8080/todo", {
+      const res = await fetch(BACKEND_API_URL + "/todo", {
         method: "GET",
         headers: headers,
       });
@@ -48,7 +50,7 @@ const Todos: NextPage = () => {
   const addTodo = async (text: string) => {
     try {
       const headers = await getRequestHeaders();
-      const res = await fetch("http://localhost:8080/todo", {
+      const res = await fetch(BACKEND_API_URL + "/todo", {
         method: "POST",
         headers: {
           ...headers,
@@ -71,7 +73,7 @@ const Todos: NextPage = () => {
     try {
       const headers = await getRequestHeaders();
       const res = await fetch(
-        new URL(id.toString(), "http://localhost:8080/todo/"),
+        new URL(id.toString(), BACKEND_API_URL + "/todo/"),
         {
           method: "PUT",
           headers: {
@@ -95,7 +97,7 @@ const Todos: NextPage = () => {
     try {
       const headers = await getRequestHeaders();
       const res = await fetch(
-        new URL(id.toString(), "http://localhost:8080/todo/"),
+        new URL(id.toString(), BACKEND_API_URL + "/todo/"),
         {
           method: "PUT",
           headers: {
@@ -119,7 +121,7 @@ const Todos: NextPage = () => {
     try {
       const headers = await getRequestHeaders();
       const res = await fetch(
-        new URL(id.toString(), "http://localhost:8080/todo/"),
+        new URL(id.toString(), BACKEND_API_URL + "/todo/"),
         {
           method: "DELETE",
           headers: {
@@ -140,7 +142,7 @@ const Todos: NextPage = () => {
     try {
       const headers = await getRequestHeaders();
       const res = await fetch(
-        new URL(id.toString(), "http://localhost:8080/todo/"),
+        new URL(id.toString(), BACKEND_API_URL + "/todo/"),
         {
           method: "PUT",
           headers: {
