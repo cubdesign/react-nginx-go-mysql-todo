@@ -44,7 +44,7 @@ func StartWebserver() {
 	config.AllowHeaders = append(config.AllowHeaders, "Authorization")
 	config.AllowOrigins = todoConfig.Config.CORS
 
-	r.SetTrustedProxies(todoConfig.Config.TRUSTED_PROXIES)
+	//r.SetTrustedProxies(todoConfig.Config.TRUSTED_PROXIES)
 
 	r.Use(gin.Logger())
 
